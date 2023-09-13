@@ -8,7 +8,7 @@ const ProductList = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>You are in good hands</h1>
       <p className={styles.desc}>
-        At San Siro, we're passionate about bringing sports enthusiasts together and making the process of booking pitches seamless and enjoyable. Whether you're a football fanatic, or someone who enjoys a friendly games on the stands, we've got you covered.
+        At San Siro, we&apos;re passionate about bringing sports enthusiasts together and making the process of booking pitches seamless and enjoyable. Whether you&apos;re a football fanatic, or someone who enjoys a friendly games on the stands, we&apos;ve got you covered.
       </p>
       <VideoPlayer />
         <Image.PreviewGroup

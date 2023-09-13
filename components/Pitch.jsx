@@ -3,6 +3,7 @@ import { Card, Col, Row, Space, Button} from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Redirect } from 'next';
 import { useRouter } from 'next/navigation';
+import { Image } from 'react-bootstrap';
 const { Meta } = Card;
 const greenButtonStyle = {
     backgroundColor: '#24dc89',
@@ -23,7 +24,7 @@ return(
             bordered={true}
             hoverable
             style={{ overflow: 'contain' }} // Adjust the height and overflow
-            cover={<img alt="example" src={props.image}/>}
+            cover={<Image alt="example" src={props.image}/>}
         >
             
                 <Meta

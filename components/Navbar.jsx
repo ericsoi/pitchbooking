@@ -45,7 +45,7 @@ function Navigation() {
     <Navbar collapseOnSelect expand="lg" className={styles.container} data-bs-theme="dark">
       <Container>
       <Navbar.Brand href="/">
-            <img
+            <Image
               alt="logo"
               src="/img/icon.png"
               width="50"
