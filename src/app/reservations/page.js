@@ -61,7 +61,7 @@ export default function Home() {
                         ):(
                             <>
                                 <Row xs={1} md={2} className="container  py-5 center">
-                                    {allPosts.map((item, index) => (
+                                    {allPosts.filter(item => item.creator._id ===session?.user.id).map((item, index) => (
                                     <Col key={index}>
                                         <Card  className="mb-2" bg='success'>
                                         {/* <Card.Img variant="top" src={item.image} /> */}
@@ -74,6 +74,8 @@ export default function Home() {
                                                         </Col>
                                                         <Col>
                                                             {item.location}
+                                                            {/* {JSON.stringify(item.creator._id)} */}
+
                                                         </Col>
                                                     </Row>
                                                 </ListGroup.Item>

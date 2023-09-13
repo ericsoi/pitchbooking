@@ -7,7 +7,7 @@ import Checkout from '@/components/Checkout';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { notification } from 'antd';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import SignIn from '@/components/SignIn';
 
 export default function Home() {
@@ -43,7 +43,15 @@ export default function Home() {
 
         }),
       });
+      if (response.status === 409) {
+        notification.open({
+          message: 'Notification',
+          description:"Reservation Exists. Select a different reservation",
+          duration: 0,
+          icon: <CloseCircleOutlined style={{ color: 'red' }} />,
 
+        });
+      }
       if (response.ok) {
         notification.open({
           message: 'Notification',
@@ -85,25 +93,13 @@ export default function Home() {
       )
     }
   }
-  // const signInHandler = () =><SignIn/>
-  function signInHandler(){
-    console.log(";;;;;")
-    return (<SignIn/>)
-  }
   return (
     <div className=''>
       {searchParams.get('time') && 
           <pre>
             <Checkout props={params} onClick={handleClick} />
-            {/* <Checkout params={params} onClick={session?.user ? handleClick : signInHandler} /> */}
-
           </pre>
-                    // {session?.user ? (
-
       }
     </div>
   )
 }
-
-
-//useSearchParms
