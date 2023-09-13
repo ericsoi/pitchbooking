@@ -17,10 +17,10 @@ const ProductList = () => {
             }}
           >
           <div className={styles.wrapper}>
-            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0001.jpg" />
-            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0002.jpg" />
-            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0003.jpg" />
-            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0004.jpg" />
+            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0001.jpg" alt='pitch'/>
+            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0002.jpg" alt='pitch'/>
+            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0003.jpg" alt='pitch'/>
+            <Image width={300} height={350} className={styles.roundedImageContainer} src="/img/IMG-20230829-WA0004.jpg" alt='pitch'/>
           </div>
         </Image.PreviewGroup>
     </div>
