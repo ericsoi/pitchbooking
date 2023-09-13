@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Button, Modal, Select, Space, DatePicker, Form,Row, Col, Input } from 'antd';
 import Reservation from './Reservation';
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { Spinner } from 'react-bootstrap';
+
 const Featured = () => {
-  
+  const { data: session } = useSession();
   const blueButtonStyle = {
     backgroundColor: '#24dc89',
     borderColor: '#24dc89',
@@ -49,6 +52,8 @@ const Featured = () => {
 
 
   return (
+    <>
+    {session || !session? (
     <div className={styles.container}>
       <div
         className="searchbarmobile"
@@ -176,7 +181,13 @@ const Featured = () => {
         {/* <Image src="/img/arrowr.png" layout="fill" alt="" objectFit="contain" /> */}
       </div>
     </div>
-  );
+  ):(
+    <div className='centered-div'>
+      <Spinner animation="grow" size='xl'/>
+    </div>
+   )}
+  </>
+  )
 };
 
 export default Featured;

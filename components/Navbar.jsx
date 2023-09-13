@@ -8,11 +8,12 @@ import Badge from 'react-bootstrap/Badge';
 import styles from '../styles/Navbar.module.css';
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { useState, useEffect } from 'react';
+import SignIn from './SignIn';
+import {LoginOutlined} from '@ant-design/icons'
 function Navigation() {
   const { data: session } = useSession();
 
   const [providers, setProviders] = useState(null);
-  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -51,10 +52,11 @@ function Navigation() {
               width="50"
               height="50"
               className="d-inline-block align-center"
-            /><b>{'San Siro'}</b>
+            />{'SanSiro'}
           </Navbar.Brand>
 
           <Nav>
+          {session?.user ? (
            <NavDropdown title={
               <Image 
                 alt={session?.user.name || "profile"}
@@ -65,35 +67,19 @@ function Navigation() {
               />
               
               } id="basic-nav-dropdown" >
-                {session?.user ? (
                   <>
                     <NavDropdown.Item href="/profile">{session?.user.name} Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/reservations">My reservations</NavDropdown.Item>
                     <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
-
-                    {/* <NavDropdown.Item onClick={signOut({ callbackUrl:"/"})} >Sign Out</NavDropdown.Item> */}
                     <NavDropdown.Item onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</NavDropdown.Item>
 
                   </>
-                ):(
-                  <>
-                  {providers &&
-                      Object.values(providers).map((provider) => (
-                        <NavDropdown.Item
-                            type='button'
-                            key={provider.name}
-                            onClick={() => {
-                              signIn(provider.id);
-                            }}
-                            className='black_btn'
-                        >
-                        Sign in
-                      </NavDropdown.Item>
-                    ))}
-                  </>
+              </NavDropdown>
+          ):( <>
+                  <SignIn text="Sign In" style={{color:'white'}}/>  
+              </>
 
-                )}
-            </NavDropdown>
+          )}
            
           </Nav>
       </Container>

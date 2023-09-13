@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { notification } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import SignIn from '@/components/SignIn';
 
 export default function Home() {
   
@@ -84,14 +85,21 @@ export default function Home() {
       )
     }
   }
+  // const signInHandler = () =><SignIn/>
+  function signInHandler(){
+    console.log(";;;;;")
+    return (<SignIn/>)
+  }
   return (
     <div className=''>
       {searchParams.get('time') && 
           <pre>
-            {/* {contextHolder} */}
             <Checkout props={params} onClick={handleClick} />
-            {/* {JSON.stringify(params, null, 2)} */}
+            {/* <Checkout params={params} onClick={session?.user ? handleClick : signInHandler} /> */}
+
           </pre>
+                    // {session?.user ? (
+
       }
     </div>
   )

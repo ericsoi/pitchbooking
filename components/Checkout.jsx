@@ -1,11 +1,15 @@
 import { Button } from "antd";
 import { Card } from "react-bootstrap";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import SignIn from "./SignIn";
 
 export default function Checkout({props, onClick }) {
+    const { data: session } = useSession();
     const greenButtonStyle = {
         backgroundColor: '#24dc89',
         borderColor: '#24dc89',
         color: 'white',
+        justify: 'flex'
       };
     return (
       <div className="container">  
@@ -69,7 +73,14 @@ export default function Checkout({props, onClick }) {
                 {/* <div className="input-group-append">
                   <button type="submit" className="btn btn-secondary">Redeem</button>
                 </div> */}
-                <Button type="primary" block style={greenButtonStyle} onClick={onClick}>Book now </Button>
+                  {session?.user ? (
+                    <Button type="primary" block style={greenButtonStyle} onClick={onClick}>Book now </Button>
+                  ):(
+                    <Button block style={greenButtonStyle}>
+                      <SignIn text="Sign In to book" className="justify-center"/> 
+                    </Button>
+                    )
+                  }
               </div>
             </div>
           </div>
