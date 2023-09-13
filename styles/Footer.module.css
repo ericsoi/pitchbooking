@@ -1,0 +1,82 @@
+.container {
+  height: calc(100vh - 100px);
+  background-color: rgb(29, 144, 98);
+  display: flex;
+  position: relative;
+  bottom: 0;
+}
+
+.item {
+  flex: 1;
+  position: relative;
+  display: flex;
+}
+
+.item:last-child {
+  flex: 2;
+  padding: 50px;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.title {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.text {
+  color: rgb(0, 0, 0);
+}
+
+.motto {
+  color: rgb(255, 217, 25);
+  font-size:2rem;
+  font-family: cursive;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    height: auto;
+    text-align: center;
+  }
+  .item:first-child {
+    display: none;
+  }
+
+  .item {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    height: auto;
+    text-align: center;
+  }
+  .item:first-child {
+    display: none;
+  }
+
+  .item {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
