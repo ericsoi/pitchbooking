@@ -3,7 +3,9 @@ import { Card } from "react-bootstrap";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import SignIn from "./SignIn";
 import BackButton from "./BackButton";
-
+import CalendarCard from "./Calender";
+import { notification } from "antd";
+import { InfoCircleOutlined } from '@ant-design/icons'
 export default function Checkout({props, onClick }) {
     const { data: session } = useSession();
     const greenButtonStyle = {
@@ -12,6 +14,13 @@ export default function Checkout({props, onClick }) {
         color: 'white',
         justify: 'flex'
       };
+      const handleClick =() => {
+        notification.open({
+          message: 'Notification',
+          description:"Contact admin for premium reservation",
+          duration: 0,
+          icon: <InfoCircleOutlined style={{ color: 'green' }} />,
+        })};
     return (
       <div className="container">  
         <div className="row py-3">
@@ -51,7 +60,7 @@ export default function Checkout({props, onClick }) {
                 
               </li>
               <li className="list-group-item d-flex justify-content-between lh-condensed">
-                    <Button variant="outline-success" type="primary" block style={greenButtonStyle}>Subscribe to premium </Button>
+                    <Button variant="outline-success" type="primary" block style={greenButtonStyle} onClick={handleClick}>Subscribe to premium </Button>
                 </li>
               <li className="list-group-item d-flex justify-content-between bg-light">
                 <div className="text-success overflow-auto">
@@ -63,8 +72,8 @@ export default function Checkout({props, onClick }) {
                 </div>
               </li>
               <li className="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>$20</strong>
+                <span>Total </span>
+                <strong>{props.amount}</strong>
               </li>
             </ul>
   
@@ -92,6 +101,7 @@ export default function Checkout({props, onClick }) {
           </div>
           <div className="col-md-8 order-md-1">
             <h4 className="mb-3">Reservation</h4>
+            {/* <CalendarCard /> */}
             <Card >
                 <Card.Img variant="top" src={props.image} style={{ height:'23rem' }}  />
                 <Card.Body>

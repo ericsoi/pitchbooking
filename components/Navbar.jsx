@@ -70,7 +70,7 @@ function Navigation() {
                   <>
                     <NavDropdown.Item href="/profile">{session?.user.name} Profile</NavDropdown.Item>
                     <NavDropdown.Item href="/reservations">My reservations</NavDropdown.Item>
-                    <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
+                    <NavDropdown.Item href="/admin">Dashboard</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => signOut({ callbackUrl: "/" })}>Sign Out</NavDropdown.Item>
 
                   </>

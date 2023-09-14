@@ -3,6 +3,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Provider from '@/components/Provider'
 import Footer from '@/components/Footer'
+import moment from 'moment';
+moment.locale('en'); // Replace 'en' with the desired locale
 
 const inter = Inter({ subsets: ['latin'] })
 
