@@ -5,6 +5,7 @@ import { Button, Modal, Select, Space, DatePicker, Form,Row, Col, Input } from '
 import Reservation from './Reservation';
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { Spinner } from 'react-bootstrap';
+import { useRouter } from 'next/navigation';
 
 const Featured = () => {
   const { data: session } = useSession();
@@ -13,6 +14,7 @@ const Featured = () => {
     borderColor: '#24dc89',
     color: 'white',
   };
+  const router = useRouter()
   const [index, setIndex] = useState(0);
   const [resavationProps, setresavationProps] = useState({date:null, location:null})
   const images = [
@@ -39,9 +41,9 @@ const Featured = () => {
   const onFinish = (values) => {
     const formattedDate = new Date(values.date).toISOString().split('T')[0];
     setresavationProps(pre=>({...pre, date: formattedDate, location: values.location}))
-    setOpen(true)
+    // setOpen(true)
     //Can directly call props here
-    
+    router.push(`/available?date=${formattedDate}&location=${values.location}`);
 
   };
 

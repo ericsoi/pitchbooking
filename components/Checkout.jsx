@@ -2,6 +2,7 @@ import { Button } from "antd";
 import { Card } from "react-bootstrap";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import SignIn from "./SignIn";
+import BackButton from "./BackButton";
 
 export default function Checkout({props, onClick }) {
     const { data: session } = useSession();
@@ -13,7 +14,7 @@ export default function Checkout({props, onClick }) {
       };
     return (
       <div className="container">  
-        <div className="row py-5">
+        <div className="row py-3">
           <div className="col-md-4 order-md-2 mb-4">
             <h4 className="d-flex justify-content-between align-items-center mb-3">
               <span className="text-muted">Reservation Details</span>
@@ -81,6 +82,11 @@ export default function Checkout({props, onClick }) {
                     </Button>
                     )
                   }
+              </div>
+            </div>
+            <div className="card p-2">
+              <div className="input-group">
+                <BackButton />
               </div>
             </div>
           </div>

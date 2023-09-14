@@ -1,12 +1,29 @@
 import { Row } from "antd";
 import Pitch from "./Pitch";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Reservation = (resProps) => {
   const [reservationCount, setreservationCount] = useState(null)
+  const [resavations, setresavations] = useState([])
+  const fetchPosts = async () => {
+    try {
+        const response = await fetch("/api/reservation");
+        const data = await response.json();
+        setresavations(data);
+    }catch (err) {
+      console.log("error: ", err)
+    }
+  }
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
+  function isSubset(subset, superset) {
+    return Object.keys(subset).every(key => superset.hasOwnProperty(key) && subset[key] === superset[key]);
+  }
+  
   const reservationDuration = 140; // in minutes
   const startTime = 6 * 60 + 30; // 6:30 AM in minutes
   const endTime = 21 * 60; // 9:00 PM in minutes
-  console.log(resProps)
   const generateReservations = (props) => {
     const reservations = [];
     for (let time = startTime; time <= endTime - reservationDuration; time += reservationDuration) {
@@ -29,20 +46,43 @@ const Reservation = (resProps) => {
       const image = "https://img.grouponcdn.com/deal/2WQR2TPTRTqn8hKG8ZZ2Wqd7ZRtR/2W-1400x840/v1/c700x420.jpg" 
       const reservationType = "One Time"
       const amount = "USD 50" 
-      const myprops = {date, time, startHour, startMinutes, endHour, endMinutes, location, description, reservationDuration, image, amount, reservationType}
-      if(resProps.location === location){
-        reservations.push(
-            <Pitch {...myprops}/>
-        )
-        }else{
-            return
-        }
+      const reservationId = Math.random().toString(36).substring(2, 10).toUpperCase(); // Generate a random string and convert it to uppercase
+      const myprops = {reservationId, date, time, startHour, startMinutes, endHour, endMinutes, location, description, reservationDuration, image, amount, reservationType}
+      
+      
+      const targetObject = {
+        date: date,
+        startHour: startHour,
+      };
+      // const isSubsetInAnyObject = resavations.some(superObject => isSubset(subsetObject, subsetObject))
+      console.log(targetObject)
+      console.log(resavations)
+      const foundObject = resavations?.find((obj) => {
+        return (
+          obj.date.substring(0, 10) === targetObject.date && // Compare date part
+          parseInt(obj.startHour) === targetObject.startHour // Compare startHour
+        );
+      });
+      
+      if (foundObject) {
+        console.log("Found:", foundObject);
+      } else {
+        console.log("Not found");
+        if(resProps.location === location){
+          // !isSubsetInAnyObject &&
+            reservations.push(
+                <Pitch {...myprops}/>
+            )
+          }else{
+              return
+          }
+      }
+
     }
 
     // setresavationProps(pre=>({...pre, date: formattedDate, location: values.location}))
 
     // setreservationCount(pre=>(reservations.length))
-    console.log(reservations.length)
     return reservations;
   };
 

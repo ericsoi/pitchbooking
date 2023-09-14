@@ -5,6 +5,10 @@ const ReservationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  reservationId:{
+    type:String,
+    required: [true, 'reservationId is required.'],
+  },
   startHour:{
     type:String,
     required: [true, 'startHour is required.'],

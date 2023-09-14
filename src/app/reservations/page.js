@@ -11,7 +11,7 @@ import { ListGroup } from 'react-bootstrap';
 import { Button } from 'antd';
 import SignIn from '@/components/SignIn';
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-
+import Table from 'react-bootstrap/Table';
 export default function Home() {
     const { data: session } = useSession();
     const greenButtonStyle = {
@@ -60,82 +60,43 @@ export default function Home() {
                         </div>
                         ):(
                             <>
-                                <Row xs={1} md={2} className="container  py-5 center">
-                                    {allPosts.filter(item => item.creator._id ===session?.user.id).map((item, index) => (
-                                    <Col key={index}>
-                                        <Card  className="mb-2" bg='success'>
-                                        {/* <Card.Img variant="top" src={item.image} /> */}
-                                        <Card.Body>
-                                            <ListGroup variant="flush">
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            Pitch
-                                                        </Col>
-                                                        <Col>
-                                                            {item.location}
-                                                            {/* {JSON.stringify(item.creator._id)} */}
+                                <Table responsive className='container' style={{ minHeight: '90vh' }}>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Reservation ID</th>
+                                            <th>Pitch Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>End Time</th>
+                                            <th>Duration</th>
+                                            <th>Total Cost</th>
+                                            <th>Status</th>
 
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            Date
-                                                        </Col>
-                                                        <Col>
-                                                            {item.date.slice(0, 10)}
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            Start Time
-                                                        </Col>
-                                                        <Col>
-                                                            {item.startHour}:{item.startMinutes}
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            End Time
-                                                        </Col>
-                                                        <Col>
-                                                            {item.endHour}:{item.endMinutes}
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            Duration
-                                                        </Col>
-                                                        <Col>
-                                                            {item.duration} minuts
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-                                                    <Row xs={1} md={2}>
-                                                        <Col>
-                                                            Status
-                                                        </Col>
-                                                        <Col>
-                                                        Active
-                                                        </Col>
-                                                    </Row>
-                                                </ListGroup.Item>
-                                            </ListGroup>
-                                        
-                                        </Card.Body>
-                                        </Card>
-                                    </Col>
-                                    ))}
-                                </Row>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {allPosts.filter(item => item.creator._id ===session?.user.id).map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index}</td>
+                                            <td>{item.reservationId}</td>
+                                            <td>{item.location}</td>
+                                            <td>{item.date.slice(0, 10)}</td>
+                                            <td>{item.startHour}:{item.startMinutes}</td>
+                                            <td>{item.endHour}:{item.endMinutes}</td>
+                                            <td>{item.duration} minuts</td>
+                                            <td>{item.amount}</td>
+                                            <td>Active</td>
+
+
+                                        </tr>
+                                            )
+                                        )
+                                    }
+                                    </tbody>
+                                </Table>
+                                         
                             </>
                         )
                     )
@@ -150,111 +111,4 @@ export default function Home() {
             )}
         </>
     )
-    // {isLoading ? (
-    //     <div className='centered-div'>
-    //         <Spinner animation="grow" size='xl'/>
-    //     </div>
-    // ):()
-
-    // if(session?.user){
-    //     if (allPosts.length > 0){
-    //         return (
-            //     <Row xs={1} md={2} className="container  py-5 center">
-            //     {allPosts.map((item, index) => (
-            //     <Col key={index}>
-            //         <Card  className="mb-2" bg='success'>
-            //         {/* <Card.Img variant="top" src={item.image} /> */}
-            //         <Card.Body>
-            //             <ListGroup variant="flush">
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             Pitch
-            //                         </Col>
-            //                         <Col>
-            //                             {item.location}
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             Date
-            //                         </Col>
-            //                         <Col>
-            //                             {item.date.slice(0, 10)}
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             Start Time
-            //                         </Col>
-            //                         <Col>
-            //                             {item.startHour}:{item.startMinutes}
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             End Time
-            //                         </Col>
-            //                         <Col>
-            //                             {item.endHour}:{item.endMinutes}
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             Duration
-            //                         </Col>
-            //                         <Col>
-            //                             {item.duration} minuts
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //                 <ListGroup.Item>
-            //                     <Row xs={1} md={2}>
-            //                         <Col>
-            //                             Status
-            //                         </Col>
-            //                         <Col>
-            //                         Active
-            //                         </Col>
-            //                     </Row>
-            //                 </ListGroup.Item>
-            //             </ListGroup>
-                    
-            //         </Card.Body>
-            //         </Card>
-            //     </Col>
-            //     ))}
-            // </Row>
-    //     )
-    //     }else{
-    //         return(
-                // <div className='centered-div text-center'>
-                //     <div>
-                //         You dont have any reservation<br></br>
-                //         <Link href={'/'}>  Click here to book</Link>
-                //     </div>
-                // </div>
-    //         )
-    //     }
-    // }else{
-    //     return(
-    //         <div className='centered-div text-center'>
-    //             <Button type="dashed" style={greenButtonStyle}>
-    //                   <SignIn text="Sign In to View your reservations" className="justify-center"/> 
-    //             </Button>
-    //         </div>
-    //     )
-    // }
 }
-
-
-
-    

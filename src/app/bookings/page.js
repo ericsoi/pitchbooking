@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react';
 import { notification } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import SignIn from '@/components/SignIn';
+import BackButton from '@/components/BackButton';
 
 export default function Home() {
   
@@ -28,6 +29,7 @@ export default function Home() {
         method: "POST",
         body: JSON.stringify({
           userId: session?.user.id,
+          reservationId:params.reservationId,
           startHour:params.startHour, 
           startMinutes:params.startMinutes, 
           endMinutes:params.endMinutes, 
@@ -46,7 +48,20 @@ export default function Home() {
       if (response.status === 409) {
         notification.open({
           message: 'Notification',
-          description:"Reservation Exists. Select a different reservation",
+          description:(
+              <>
+                Reservation Exists. Select a different reservation <button ></button>
+              </>
+            ),
+          duration: 0,
+          icon: <CloseCircleOutlined style={{ color: 'red' }} />,
+
+        });
+      }
+      if (response.status === 500) {
+        notification.open({
+          message: 'Notification',
+          description:"Reservation Failed. Internal Server error",
           duration: 0,
           icon: <CloseCircleOutlined style={{ color: 'red' }} />,
 
