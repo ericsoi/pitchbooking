@@ -12,19 +12,22 @@ function SideMenu() {
   };
 
   return (
-    <Sidebar collapsed={collapsed} style={{minHeight:"95vh"}}>
+    <Sidebar collapsed={collapsed} style={{minHeight:"95vh", position:'flex', zIndex: 1000,   transition:' transform 0.3s'}}>
       <Menu iconShape="square" className='my-4'>
-      <Link a href='/admin' style= {{ textDecoration: 'none', color:'black' }}>
-            <MenuItem icon={<FiMenu onClick={toggleSidebar}/>} >
+            <MenuItem icon={<FiMenu />} onClick={toggleSidebar} >
             {collapsed ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
             
             </MenuItem>
-        </Link> 
+        <Link a href='/admin' style= {{ textDecoration: 'none', color:'black' }}>
+            <MenuItem icon={<FiHome />}>
+                Home
+            </MenuItem>
+        </Link>
             <SubMenu label="Reservations" icon={<FiBook />}>
-                <Link a href='/admin/onetime' style= {{ textDecoration: 'none', color:'black' }}>
+                <Link a href='/admin/reservations/onetime' style= {{ textDecoration: 'none', color:'black' }}>
                     <MenuItem>one-time</MenuItem>
                 </Link>
-                <Link a href='/admin/premium' style= {{ textDecoration: 'none', color:'black' }}>
+                <Link a href='/admin/reservations/premium' style= {{ textDecoration: 'none', color:'black' }}>
                 <   MenuItem>premium</MenuItem>
                 </Link>
 
