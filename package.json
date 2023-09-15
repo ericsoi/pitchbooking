@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.9",
     "@mui/x-charts": "^6.0.0-alpha.11",
+    "@mui/x-data-grid": "^6.14.0",
     "antd": "^5.9.0",
     "autoprefixer": "10.4.15",
     "bootstrap": "^5.3.1",

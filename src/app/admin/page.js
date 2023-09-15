@@ -81,7 +81,7 @@ export default function Home() {
         ):(
             <div className='centered-div text-center'>
                 <Button type="dashed" style={greenButtonStyle}>
-                    <SignIn text="Sign In to View your reservations" className="justify-center"/> 
+                    <SignIn text="Sign In to Continue" className="justify-center"/> 
                 </Button>
             </div>
         )}
