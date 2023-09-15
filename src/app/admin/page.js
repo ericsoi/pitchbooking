@@ -13,7 +13,47 @@ import SignIn from '@/components/SignIn';
 import { greenButtonStyle } from '@/utils/buttons';
 import { Button } from 'antd';
 export default function Home() {
-    const {data: session} = useSession()
+    const { data: session } = useSession();
+    const [isLoading, setIsLoading] = useState(true);
+    const [allReservations, setAllReservations] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const fetchPosts = async () => {
+    try {
+        const response = await fetch("/api/reservation");
+        const data = await response.json();
+
+        if(data){
+            setAllReservations(data);
+            setIsLoading(false);
+        }else{
+            setAllReservations([]);
+            setIsLoading(false);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+    }
+    try {
+        const userresponse = await fetch("/api/users/all");
+        const userdata = await userresponse.json();
+
+        if(userdata){
+          setAllUsers(userdata);
+          setIsLoading(false);
+        }else{
+          setAllUsers([]);
+          setIsLoading(false);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+    }
+
+    };
+  
+    useEffect(() => {
+        fetchPosts();
+    }, [allReservations]);
     const [isSmallDevice, setisSmallDevice] = useState() // Adjust the breakpoint as needed
 
     useEffect(() => {
@@ -33,10 +73,10 @@ export default function Home() {
     const chartWidth = isSmallDevice ? 300 : 900; // Adjust the width for small devices
 
     const myarr = [
-        {name:'Onetime Reservations', value:"10", bg:'primary'},
-        {name:'Premium Reservations', value:"10", bg:'success'},
-        {name:'Users', value:"10", bg:'secondary'},
-        {name:'Transactions', value:"10", bg:'danger'},
+        {name:'Onetime Reservations', value:allReservations.length, bg:'primary'},
+        {name:'Premium Reservations', value:"-", bg:'success'},
+        {name:'Users', value:allUsers.length, bg:'secondary'},
+        {name:'Transactions', value:"-", bg:'danger'},
     ];
     return (
       <div >    
