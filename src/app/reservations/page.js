@@ -11,15 +11,10 @@ import { ListGroup } from 'react-bootstrap';
 import { Button } from 'antd';
 import SignIn from '@/components/SignIn';
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { greenButtonStyle } from '@/utils/buttons';
 import Table from 'react-bootstrap/Table';
 export default function Home() {
     const { data: session } = useSession();
-    const greenButtonStyle = {
-        backgroundColor: '#24dc89',
-        borderColor: '#24dc89',
-        color: 'white',
-        justify: 'flex'
-      };
     const [isLoading, setIsLoading] = useState(true);
     const [allPosts, setAllPosts] = useState([]);
     const fetchPosts = async () => {

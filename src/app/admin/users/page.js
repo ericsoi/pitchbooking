@@ -8,17 +8,97 @@ import { useSession } from 'next-auth/react';
 import { greenButtonStyle } from '@/utils/buttons';
 import { Button } from 'antd';
 import SignIn from '@/components/SignIn';
+import { DataGrid } from '@mui/x-data-grid';
+import Link from 'next/link';
 export default function Home() {
-   const{data:session}= useSession()
+    const { data: session } = useSession();
+    const [isLoading, setIsLoading] = useState(true);
+    const [allPosts, setAllPosts] = useState([]);
+    const fetchPosts = async () => {
+    try {
+        const response = await fetch("/api/users/all");
+        const data = await response.json();
+        if(data){
+          setAllPosts(data);
+          setIsLoading(false);
+        }else{
+          setAllPosts([]);
+          setIsLoading(false);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+    }
+
+    };
+  
+    useEffect(() => {
+        fetchPosts();
+    }, [allPosts]);
+    const columns= [
+        { field: 'id', headerName: 'ID', width:60},
+        { field: 'email', headerName: 'email' },
+        { field: 'username', headerName: 'username' },
+        { field: 'image', headerName: 'image'},
+        { field: 'role', headerName: 'role'},
+
+      ];
+      
+      const rows = allPosts.map((item, ind)=>({
+            id:ind+1, 
+            // avatar:item.creator.image,
+            email:item.email, 
+            username:item.username,
+            image:item.image,
+            role:item.role,
+
+        })) 
+    //   [
+    //     { id: 1, lastName: 'Snow', firstName: 'Jon', email: "erick.soi@hotmail.com"},
+    //     { id: 2, lastName: 'Lannister', firstName: 'Cersei', email: "erick.soi@hotmail.com"},
+    //     { id: 3, lastName: 'Lannister', firstName: 'Jaime', email: "erick.soi@hotmail.com"},
+    //     { id: 4, lastName: 'Stark', firstName: 'Arya', email: "erick.soi@hotmail.com"},
+    //     { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', email: "erick.soi@hotmail.com" },
+    //     { id: 6, lastName: 'Melisandre', firstName: 'Daenerys', email: "erick.soi@hotmail.com" },
+    //     { id: 7, lastName: 'Clifford', firstName: 'Ferrara', email: "erick.soi@hotmail.com"},
+    //     { id: 8, lastName: 'Frances', firstName: 'Rossini', email: "erick.soi@hotmail.com"},
+    //     { id: 9, lastName: 'Roxie', firstName: 'Harvey', email: "erick.soi@hotmail.com"},
+    //   ];
     return (
     <div >    
       {session?.user ? (
             <div style={{display:'flex'}}>
                 <SideMenu />
-                <div className='container-fluid my-3'>Users
+                <div className='container-fluid my-3'>Onetime Reservations
+                {isLoading?(
+                    <div className='centered-div'>
+                        <Spinner animation="grow" size='xl'/>
+                    </div>
+                    ):(allPosts.length === 0 ? (
+                        <div className='centered-div text-center'>
+                            <div>
+                                No Users Available<br></br>
+                                <Link href={'/admin'}>  Click here to go back</Link>
+                            </div>
+                        </div>
+                    ):(
+                    <div style={{ height: 500, width: '100%' }}>
+                                                {/* {JSON.stringify(rows)} */}
 
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            initialState={{
+                            pagination: {
+                                paginationModel: { page: 0, pageSize: 5 },
+                            },
+                            }}
+                            pageSizeOptions={[5, 10]}
+                            checkboxSelection
+                        />
+                    </div>
+                ))}
                 </div>
-                
             </div>
             ):(
             <div className='centered-div text-center'>
